@@ -83,10 +83,10 @@ export const Wrapper = styled.div`
 
 export const Playlist = styled.div`
   border-radius: 5px;
-  padding: 20px 30px;
+  padding: 10px 30px;
   margin: 20px;
   width: 90%;
-  height: 300px;
+  height: 30rem;
   transition: all 0.3s ease-out;
   background-color: #eee;
   overflow-y: scroll;
