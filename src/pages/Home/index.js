@@ -24,6 +24,31 @@ function Home() {
     setCity(event.target.value);
   };
 
+  const handleSavePlayList = () => {
+    try {
+      const existsPlaylist = localStorage.getItem('@my-playlist');
+
+      if (existsPlaylist) {
+        localStorage.setItem(
+          '@my-playlist',
+          JSON.stringify([
+            ...JSON.parse(localStorage.getItem('@my-playlist')),
+            { weather, playlist },
+          ]),
+        );
+      } else {
+        localStorage.setItem(
+          '@my-playlist',
+          JSON.stringify([{ weather, playlist }]),
+        );
+      }
+
+      alert('Playlist salva com sucesso!');
+    } catch (err) {
+      alert(`Error - ${err}`);
+    }
+  };
+
   const convertFahrenheitToCelsius = (temperature) => ((temperature - 32) / 1.8).toFixed(1);
 
   const calculateMusicalGenres = (temperature) => {
@@ -37,6 +62,8 @@ function Home() {
     event.preventDefault();
 
     setLoading(true);
+    setWeather('');
+    setPlaylist('');
 
     // fetch weather
     await axios
@@ -57,6 +84,7 @@ function Home() {
           city: data.name,
           temperature,
           genre,
+          date: new Date().toLocaleDateString(),
         });
 
         // fetch playlist
@@ -73,16 +101,13 @@ function Home() {
             const { hits } = response.data.tracks;
 
             setPlaylist(hits);
-
             setLoading(false);
           })
           .catch(() => {
             setLoading(false);
 
             // eslint-disable-next-line no-alert
-            alert(
-              'ops! ocorreu um erro ao buscar ou converter os dados',
-            );
+            alert('ops! ocorreu um erro ao buscar ou converter os dados');
           });
       })
       .catch(() => {
@@ -106,20 +131,21 @@ function Home() {
             onChange={handleChangeCity}
             required
           />
-          <button type='submit' onClick={() => {}}>
-            Buscar
-          </button>
+          <button type='submit'>Buscar</button>
         </Form>
+
         {!!loading && <span>Carregando...</span>}
 
-        {Object.values(weather).length > 0 && playlist.length > 0 && !loading ? (
+        {Object.values(weather).length > 0
+        && playlist.length > 0
+        && !loading ? (
           <>
             <CityInfo>
               <p>{calculateMusicalGenres(weather.temperature)}</p>
               <span>
                 {weather.city}
                 {' '}
-                {new Date().toLocaleDateString()}
+                {weather.date}
               </span>
               <span>
                 {weather.temperature}
@@ -130,7 +156,7 @@ function Home() {
 
             <Wrapper>
               <h4>Músicas Sugeridas</h4>
-              <button type='button' onClick={() => {}}>
+              <button type='button' onClick={handleSavePlayList}>
                 Salvar Playlist
               </button>
             </Wrapper>
@@ -148,9 +174,9 @@ function Home() {
               ))}
             </Playlist>
           </>
-        ) : (
-          ''
-        )}
+          ) : (
+            ''
+          )}
       </Content>
     </Container>
   );
