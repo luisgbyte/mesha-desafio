@@ -8,10 +8,9 @@ function NavBar() {
   return (
     <>
       <Nav>
-        <NavLink to='/' />
         <NavMenu>
           <NavLink to='/'>HOME</NavLink>
-          <NavLink to='/playlists'>LISTAS SALVAS</NavLink>
+          <NavLink to='/playlists'>PLAYLISTS</NavLink>
         </NavMenu>
       </Nav>
     </>

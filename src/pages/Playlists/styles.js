@@ -25,14 +25,23 @@ export const Card = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  
+
   > p {
     margin: 0.5rem 0;
+    font-size: 1.8rem;
+  }
+
+  > span {
+    padding: 0 10px;
   }
 
   @media (max-width: 600px) {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
+
+    > span {
+      padding-top: 2rem;
+    }
   }
 `;
