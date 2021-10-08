@@ -1,17 +1,27 @@
-import React, { useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { RiDeleteBin2Fill } from 'react-icons/ri';
+import { FiEye } from 'react-icons/fi';
 
 import { Container, Content, Card } from './styles';
 
 function Playlists() {
-  const playlists = useMemo(() => {
+  const [playlists, setPlaylists] = useState([]);
+
+  useEffect(() => {
     try {
-      return JSON.parse(localStorage.getItem('@my-playlist'));
+      setPlaylists(JSON.parse(localStorage.getItem('@my-playlist')));
     } catch (err) {
       alert(`Error! ${err}`);
     }
+  }, []);
 
-    return null;
-  });
+  const handleDeletePlayList = (id) => {
+    const newPlaylist = playlists.filter((track, index) => index !== id);
+    setPlaylists(newPlaylist);
+
+    localStorage.setItem('@my-playlist', JSON.stringify(newPlaylist));
+  };
 
   return (
     <Container>
@@ -24,8 +34,22 @@ function Playlists() {
             <p>{index + 1}</p>
             <p>{info.city}</p>
             <p>{info.date}</p>
-            <p>{info.temperature}</p>
+            <p>{info.hour}</p>
+            <p>
+              {info.temperature}
+              {' '}
+              ºC
+            </p>
             <p>{info.genre}</p>
+            <span>
+              <FiEye type='button' onClick={() => alert('')} />
+            </span>
+            <span>
+              <RiDeleteBin2Fill
+                type='button'
+                onClick={() => handleDeletePlayList(index)}
+              />
+            </span>
           </Card>
         ))}
       </Content>

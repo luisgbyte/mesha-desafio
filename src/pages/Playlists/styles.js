@@ -24,14 +24,15 @@ export const Card = styled.div`
 
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  
+  > p {
+    margin: 0.5rem 0;
+  }
 
-  @media (max-width: 400px) {
+  @media (max-width: 600px) {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    > p {
-      margin: 0.5rem 0;
-    }
   }
 `;

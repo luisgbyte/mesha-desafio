@@ -85,6 +85,7 @@ function Home() {
           temperature,
           genre,
           date: new Date().toLocaleDateString(),
+          hour: new Date().toLocaleTimeString(),
         });
 
         // fetch playlist
