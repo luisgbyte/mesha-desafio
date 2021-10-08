@@ -18,6 +18,11 @@ export const Content = styled.div`
   > h3 {
     text-align: center;
   }
+
+  > span {
+    margin-top: 6rem;
+    font-size: 1.8rem;
+  }
 `;
 
 export const Form = styled.form`

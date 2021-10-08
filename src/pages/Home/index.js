@@ -11,13 +11,14 @@ import {
   Wrapper,
 } from './styles';
 
-const apiKeyWeather = process.env.REACT_APP_APIKEY_WEATHER;
-const apiKeyPlayList = process.env.REACT_APP_APIKEY_PLAYLIST;
+const API_KEY_WEATHER = process.env.REACT_APP_APIKEY_WEATHER;
+const API_KEY_PLAYLIST = process.env.REACT_APP_APIKEY_PLAYLIST;
 
 function Home() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState('');
   const [playlist, setPlaylist] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleChangeCity = (event) => {
     setCity(event.target.value);
@@ -35,11 +36,13 @@ function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    setLoading(true);
+
     // fetch weather
     await axios
       .get('https://api.openweathermap.org/data/2.5/weather', {
         params: {
-          appid: apiKeyWeather,
+          appid: API_KEY_WEATHER,
           q: city,
           units: 'imperial',
         },
@@ -47,20 +50,20 @@ function Home() {
       .then((res) => {
         const { data } = res;
 
-        setWeather({
-          temperature: convertFahrenheitToCelsius(data.main.temp),
-          city: data.name,
-        });
-
-        // calcs
         const temperature = convertFahrenheitToCelsius(data.main.temp);
         const genre = calculateMusicalGenres(temperature);
+
+        setWeather({
+          city: data.name,
+          temperature,
+          genre,
+        });
 
         // fetch playlist
         axios
           .get('https://shazam.p.rapidapi.com/search', {
             headers: {
-              'x-rapidapi-key': apiKeyPlayList,
+              'x-rapidapi-key': API_KEY_PLAYLIST,
             },
             params: {
               term: genre,
@@ -70,15 +73,23 @@ function Home() {
             const { hits } = response.data.tracks;
 
             setPlaylist(hits);
+
+            setLoading(false);
           })
-          .catch((err) => {
+          .catch(() => {
+            setLoading(false);
+
             // eslint-disable-next-line no-alert
-            alert(`ops! ocorreu um erro ao buscar ou converter os dados - ${err}`);
+            alert(
+              'ops! ocorreu um erro ao buscar ou converter os dados',
+            );
           });
       })
-      .catch((err) => {
+      .catch(() => {
+        setLoading(false);
+
         // eslint-disable-next-line no-alert
-        alert(`ops! ocorreu um erro ao buscar ou converter os dados - ${err}`);
+        alert('ops! ocorreu um erro ao buscar ou converter os dados');
       });
   };
 
@@ -86,6 +97,7 @@ function Home() {
     <Container>
       <Content>
         <h3>VEJA QUAIS MÚSICAS COMBINAM COM O CLIMA DA SUA CIDADE </h3>
+
         <Form onSubmit={handleSubmit}>
           <input
             type='text'
@@ -98,8 +110,9 @@ function Home() {
             Buscar
           </button>
         </Form>
+        {!!loading && <span>Carregando...</span>}
 
-        {Object.values(weather).length > 0 && playlist.length > 0 ? (
+        {Object.values(weather).length > 0 && playlist.length > 0 && !loading ? (
           <>
             <CityInfo>
               <p>{calculateMusicalGenres(weather.temperature)}</p>
@@ -117,7 +130,9 @@ function Home() {
 
             <Wrapper>
               <h4>Músicas Sugeridas</h4>
-              <button type='button'>Salvar Playlist</button>
+              <button type='button' onClick={() => {}}>
+                Salvar Playlist
+              </button>
             </Wrapper>
 
             <Playlist>
