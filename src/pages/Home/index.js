@@ -33,13 +33,13 @@ function Home() {
           '@my-playlist',
           JSON.stringify([
             ...JSON.parse(localStorage.getItem('@my-playlist')),
-            { weather, playlist },
+            { info: weather, playlist },
           ]),
         );
       } else {
         localStorage.setItem(
           '@my-playlist',
-          JSON.stringify([{ weather, playlist }]),
+          JSON.stringify([{ info: weather, playlist }]),
         );
       }
 
@@ -105,15 +105,11 @@ function Home() {
           })
           .catch(() => {
             setLoading(false);
-
-            // eslint-disable-next-line no-alert
             alert('ops! ocorreu um erro ao buscar ou converter os dados');
           });
       })
       .catch(() => {
         setLoading(false);
-
-        // eslint-disable-next-line no-alert
         alert('ops! ocorreu um erro ao buscar ou converter os dados');
       });
   };
