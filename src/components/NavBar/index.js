@@ -10,7 +10,7 @@ function NavBar() {
       <Nav>
         <NavMenu>
           <NavLink to='/'>HOME</NavLink>
-          <NavLink to='/playlists'>PLAYLISTS</NavLink>
+          <NavLink to='playlists'>PLAYLISTS</NavLink>
         </NavMenu>
       </Nav>
     </>
