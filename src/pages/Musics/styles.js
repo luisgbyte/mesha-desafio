@@ -15,7 +15,7 @@ export const Playlist = styled.div`
   height: 30rem;
   transition: all 0.3s ease-out;
   background-color: #eee;
-  overflow-y: hidden;
+  overflow-y: scroll;
 `;
 
 export const MusicCard = styled.div`
@@ -25,8 +25,8 @@ export const MusicCard = styled.div`
 
   > img {
     margin-right: 6rem;
-    width: 3rem;
-    height: 3rem;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
     background-color: #6d6875;
   }
@@ -36,9 +36,9 @@ export const Button = styled.button`
   background-color: #b5838d;
   color: white;
   border: none;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   padding: 10px;
   border-radius: 5px;
-  margin: 10px;
+  margin-top: 4rem;
   cursor: pointer;
 `;

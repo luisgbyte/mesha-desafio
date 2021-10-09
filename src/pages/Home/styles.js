@@ -78,7 +78,7 @@ export const Wrapper = styled.div`
     background-color: #90be6d;
     color: white;
     border: none;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     padding: 10px;
     border-radius: 5px;
     margin: 10px;
@@ -104,8 +104,8 @@ export const MusicCard = styled.div`
 
   > img {
     margin-right: 6rem;
-    width: 3rem;
-    height: 3rem;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
     background-color: #6d6875;
   }

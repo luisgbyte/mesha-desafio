@@ -41,7 +41,9 @@ function Playlists() {
                 <p>{index + 1}</p>
                 <p>{info.city}</p>
                 <p>{info.date}</p>
-                <p>{info.hour}</p>
+                <p>
+                  {info.hour}
+                </p>
                 <p>
                   {info.temperature}
                   {' '}

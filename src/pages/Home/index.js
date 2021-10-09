@@ -18,6 +18,7 @@ function Home() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState('');
   const [playlist, setPlaylist] = useState([]);
+
   const [loading, setLoading] = useState(false);
 
   const handleChangeCity = (event) => {
@@ -103,10 +104,6 @@ function Home() {
 
             setPlaylist(hits);
             setLoading(false);
-          })
-          .catch(() => {
-            setLoading(false);
-            alert('ops! ocorreu um erro ao buscar ou converter os dados');
           });
       })
       .catch(() => {

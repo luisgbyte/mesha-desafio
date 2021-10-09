@@ -33,6 +33,10 @@ export const Card = styled.div`
 
   > span {
     padding: 0 10px;
+
+    &:hover {
+      color: #a37774;
+    }
   }
 
   @media (max-width: 600px) {
