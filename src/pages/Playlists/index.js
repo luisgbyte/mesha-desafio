@@ -12,7 +12,13 @@ function Playlists() {
 
   useEffect(() => {
     try {
-      setPlaylists(JSON.parse(localStorage.getItem('@my-playlist')));
+      const getLocalStorage = localStorage.getItem('@my-playlist')
+        ? JSON.parse(localStorage.getItem('@my-playlist'))
+        : null;
+
+      if (getLocalStorage === null) return;
+
+      setPlaylists(getLocalStorage);
     } catch (err) {
       alert(`Error! ${err}`);
     }

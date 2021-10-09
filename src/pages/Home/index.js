@@ -27,9 +27,9 @@ function Home() {
 
   const handleSavePlayList = () => {
     try {
-      const existsPlaylist = localStorage.getItem('@my-playlist');
+      const getLocalStorage = localStorage.getItem('@my-playlist');
 
-      if (existsPlaylist) {
+      if (getLocalStorage) {
         localStorage.setItem(
           '@my-playlist',
           JSON.stringify([

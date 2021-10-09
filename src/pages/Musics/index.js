@@ -16,12 +16,17 @@ function Musics() {
     try {
       const REAL_ID = id - 1;
 
-      const storage = JSON.parse(localStorage.getItem('@my-playlist'));
-      const { playlist } = storage[REAL_ID];
+      const getLocalStorage = localStorage.getItem('@my-playlist')
+        ? JSON.parse(localStorage.getItem('@my-playlist'))
+        : null;
+
+      if (getLocalStorage === null) return;
+
+      const { playlist } = getLocalStorage[REAL_ID];
 
       setMusics(playlist);
     } catch (err) {
-      alert(`Error! ${err}`);
+      alert(`Error, ao converter ou buscar dados. ${err}`);
     }
   }, []);
 
